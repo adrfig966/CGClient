@@ -1,0 +1,135 @@
+body {
+  background-color: #cacfd6;
+  margin: 0 0;
+  padding: 0 0;
+}
+.content-container {
+  position: absolute;
+  background-color: #92bcea;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  width: calc(100% - 20px);
+  box-shadow: #d6e5e3 0px 0px 20px;
+}
+.search-form {
+  text-align: center;
+  padding: 10px;
+  position: relative;
+}
+input[type="text"],
+input[type="number"] {
+  font-size: 30px;
+  background-color: #d6e5e3;
+  border: none;
+  color: #cf8ba9;
+  padding: 10px;
+  margin-right: 10px;
+}
+
+input::placeholder {
+  color: #bdc0f8;
+}
+.search-input {
+  width: 30%;
+}
+.days-input {
+  width: 20%;
+}
+.suggestions-box {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  z-index: 99;
+}
+.suggestion {
+  background-color: #8083b4;
+  margin-bottom: 5px;
+  padding: 10px;
+  transition: background-color 0.2s;
+}
+.suggestion:hover {
+  background-color: #afb3f7;
+}
+input[type="button"].downarrow {
+  margin-right: 10px;
+  height: 40px;
+  width: 40px;
+  line-height: 15px;
+  font-size: 30px;
+}
+.go90 {
+  animation: go90 0.3s forwards;
+}
+.go90r {
+  animation: go90r 0.3s forwards;
+}
+@keyframes go90 {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(90deg);
+  }
+}
+@keyframes go90r {
+  from {
+    transform: rotate(90deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+input[type="button"] {
+  border: none;
+  font-size: 30px;
+  background-color: #d6e5e3;
+  color: #92bcea;
+  padding: 10px;
+  transition: background-color 0.2s;
+}
+input[type="button"]:hover {
+  background-color: #cf8ba9;
+}
+input[type="button"]:active {
+  background-color: #e0b5c8;
+}
+.options-form {
+  text-align: center;
+}
+.chartWrapper {
+  width: calc(100% - 10px);
+  height: 75vh;
+  overflow-x: auto;
+  margin: auto;
+}
+.chartArea {
+  width: 99%;
+  height: 99%;
+  position: relative;
+  margin: auto;
+}
+
+@media only screen and (max-width: 750px) {
+  input[type="button"].search-button {
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+  }
+  input[type="text"],
+  input[type="button"],
+  input[type="number"] {
+    font-size: 15px;
+  }
+  input[type="button"].downarrow {
+    height: 30px;
+    width: 30px;
+    line-height: 7.5px;
+    vertical-align: middle;
+    font-size: 15px;
+  }
+}
