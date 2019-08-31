@@ -24,7 +24,8 @@
   },
   "scripts": {
     "start": "parcel public/index.html",
-    "build": "parcel build public/index.html"
+    "build": "parcel build public/index.html",
+    "serve": "parcel serve public/index.html --port 8080"
   },
   "browserslist": [
     ">0.2%",

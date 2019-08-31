@@ -1,3 +1,7 @@
+html, body, #root{
+  height: 100%;
+  width: 100%;
+}
 body {
   background-color: #cacfd6;
   margin: 0 0;
@@ -11,11 +15,28 @@ body {
   transform: translateX(-50%);
   width: calc(100% - 20px);
   box-shadow: #d6e5e3 0px 0px 20px;
+  height: calc(100% - 20px);
 }
 .search-form {
   text-align: center;
   padding: 10px;
   position: relative;
+  height: calc(35% - 20px);
+}
+.chartWrapper {
+  width: calc(100% - 10px);
+  height: 55%;
+  overflow-x: auto;
+  margin: auto;
+}
+.zoom-controls{
+  height: 10%;
+}
+.chartArea {
+  width: 99%;
+  height: 99%;
+  position: relative;
+  margin: auto;
 }
 input[type="text"],
 input[type="number"] {
@@ -98,22 +119,6 @@ input[type="button"]:hover {
 input[type="button"]:active {
   background-color: #e0b5c8;
 }
-.options-form {
-  text-align: center;
-}
-.chartWrapper {
-  width: calc(100% - 10px);
-  height: 75vh;
-  overflow-x: auto;
-  margin: auto;
-}
-.chartArea {
-  width: 99%;
-  height: 99%;
-  position: relative;
-  margin: auto;
-}
-
 @media only screen and (max-width: 750px) {
   input[type="button"].search-button {
     display: block;

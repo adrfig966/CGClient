@@ -5,13 +5,15 @@ import axios from "axios";
 import Chart from "chart.js";
 import moment from "moment";
 import "./styles.css";
+
 var zoomstyle = {
   marginLeft: "10px",
   width: "10%",
-  fontSize: "20px",
+  fontSize: "10px",
   borderTopLeftRadius: "10px",
   borderTopRightRadius: "10px",
-  fontWeight: "900"
+  fontWeight: "900",
+  height: "100%"
 };
 class App extends React.Component {
   constructor(props) {
@@ -68,9 +70,7 @@ class App extends React.Component {
         labels.push(moment.utc(datapoint[0]).format("YYYY MM DD @ hA"));
       });
       this.chart.data.datasets[0].data = data;
-      this.chart.data.datasets[0].label = `${this.state.datadisplay} of ${
-        this.state.chartinfo.name
-      } for previous ${this.state.chartinfo.daysback} day(s)`;
+      this.chart.data.datasets[0].label = `${this.state.datadisplay} of ${this.state.chartinfo.name} for previous ${this.state.chartinfo.daysback} day(s)`;
       this.chart.data.labels = labels;
       this.chart.update();
     }
@@ -101,9 +101,7 @@ class App extends React.Component {
     console.log(querydata);
     axios
       .get(
-        `https://api.coingecko.com/api/v3/coins/${
-          querydata.id
-        }/market_chart?vs_currency=usd&days=${querydata.daysback}`
+        `https://api.coingecko.com/api/v3/coins/${querydata.id}/market_chart?vs_currency=usd&days=${querydata.daysback}`
       )
       .then(this.responseHandler);
     this.setState({ chartinfo: querydata });
@@ -133,18 +131,22 @@ class App extends React.Component {
             <canvas id="mainChart" ref={this.chartRef} />
           </div>
         </div>
-        <input
-          type="button"
-          onClick={this.zoomOut}
-          value="-"
-          style={zoomstyle}
-        />
-        <input
-          type="button"
-          onClick={this.zoomIn}
-          value="+"
-          style={zoomstyle}
-        />
+        <div className="zoom-controls">
+          <input
+            className="zoombtn"
+            type="button"
+            onClick={this.zoomOut}
+            value="-"
+            style={zoomstyle}
+          />
+          <input
+            className="zoombtn"
+            type="button"
+            onClick={this.zoomIn}
+            value="+"
+            style={zoomstyle}
+          />
+        </div>
       </div>
     );
   }
