@@ -8,23 +8,28 @@ class SearchForm extends React.Component {
       coinlist: [],
       suggestions: [],
       searchquery: "",
-      daysback: 5
+      daysback: 5,
+      showoptions: true
     };
     this.suggestionClick = this.suggestionClick.bind(this);
     this.suggestionHover = this.suggestionHover.bind(this);
     this.generateSuggestion = this.generateSuggestion.bind(this);
     this.daysInput = this.daysInput.bind(this);
-    this.btnClick = this.btnClick.bind(this);
+    this.historyClick = this.historyClick.bind(this);
     this.redirectEnter = this.redirectEnter.bind(this);
     this.clearSuggestions = this.clearSuggestions.bind(this);
     this.radioClick = this.radioClick.bind(this);
+    this.optionsToggle = this.optionsToggle.bind(this);
+    this.renderOptions = this.renderOptions.bind(this);
   }
   componentDidMount() {
     axios.get("https://api.coingecko.com/api/v3/coins/list").then(res => {
       this.setState({ coinlist: res.data });
     });
   }
-  componentDidUpdate() {}
+  componentDidUpdate() {
+
+  }
   generateSuggestion(e) {
     var newSuggestions;
     newSuggestions = this.state.coinlist.filter(coin => {
@@ -47,8 +52,10 @@ class SearchForm extends React.Component {
     };
     this.props.suggestionClick(querydata);
   }
-  btnClick() {
-    console.log(this.state.searchquery);
+  optionsToggle(e) {
+    this.setState({ showoptions: !this.state.showoptions });
+  }
+  historyClick() {
     var result;
     this.state.coinlist.forEach((coin, index) => {
       if (
@@ -68,7 +75,6 @@ class SearchForm extends React.Component {
       name: this.state.coinlist[result].name,
       daysback: this.state.daysback
     };
-    console.log(querydata);
     this.setState({ suggestions: [] });
     this.props.suggestionClick(querydata);
   }
@@ -88,6 +94,35 @@ class SearchForm extends React.Component {
   radioClick(e) {
     this.props.dataOptions(e);
   }
+  renderOptions() {
+    if (this.state.showoptions) {
+      return (
+        <div>
+          <input
+            type="radio"
+            value="prices"
+            checked={this.props.datadisplay == "prices"}
+            onChange={this.radioClick}
+          />{" "}
+          Prices (USD)
+          <input
+            type="radio"
+            value="market_caps"
+            checked={this.props.datadisplay == "market_caps"}
+            onChange={this.radioClick}
+          />{" "}
+          Market Caps
+          <input
+            type="radio"
+            value="total_volumes"
+            checked={this.props.datadisplay == "total_volumes"}
+            onChange={this.radioClick}
+          />{" "}
+          Volumes
+        </div>
+      );
+    }
+  }
   render() {
     return (
       <div className="search-form">
@@ -106,7 +141,12 @@ class SearchForm extends React.Component {
             );
           })}
         </div>
-        <input className="downarrow" type="button" value=">" />
+        <input
+          className={`downarrow ${this.state.showoptions ? "go90" : "go90r"}`}
+          type="button"
+          onClick={this.optionsToggle}
+          value=">"
+        />
         <input
           className="search-input"
           type="text"
@@ -129,35 +169,14 @@ class SearchForm extends React.Component {
         />
         <input
           className="search-button"
-          onClick={this.btnClick}
+          onClick={this.historyClick}
           type="button"
           value="Get history"
         />
         <br />
-        <input
-          type="radio"
-          value="prices"
-          checked={this.props.datadisplay == "prices"}
-          onChange={this.radioClick}
-        />{" "}
-        Prices (USD)
-        <input
-          type="radio"
-          value="market_caps"
-          checked={this.props.datadisplay == "market_caps"}
-          onChange={this.radioClick}
-        />{" "}
-        Market Caps
-        <input
-          type="radio"
-          value="total_volumes"
-          checked={this.props.datadisplay == "total_volumes"}
-          onChange={this.radioClick}
-        />{" "}
-        Volumes
+        {this.renderOptions()}
       </div>
     );
   }
 }
-//<input className="search-button" type="button" value="Get history" />
 export default SearchForm;

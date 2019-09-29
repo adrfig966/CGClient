@@ -6,15 +6,7 @@ import Chart from "chart.js";
 import moment from "moment";
 import "./styles.css";
 
-var zoomstyle = {
-  marginLeft: "10px",
-  width: "10%",
-  fontSize: "10px",
-  borderTopLeftRadius: "10px",
-  borderTopRightRadius: "10px",
-  fontWeight: "900",
-  height: "100%"
-};
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -36,9 +28,7 @@ class App extends React.Component {
   componentDidMount() {
     const ctx = this.chartRef.current.getContext("2d");
     this.chart = new Chart(ctx, {
-      // The type of chart we want to create
       type: "line",
-      // The data for our dataset
       data: {
         labels: [],
         datasets: [
@@ -76,9 +66,6 @@ class App extends React.Component {
     }
   }
   responseHandler(res) {
-    console.log("Response data: ");
-    console.log(res.data);
-    //Insert options here
     var targetdata = this.state.datadisplay;
     var data = [],
       labels = [];
@@ -97,8 +84,6 @@ class App extends React.Component {
     this.chart.update();
   }
   suggestionClick(querydata) {
-    console.log("Received in parent: ");
-    console.log(querydata);
     axios
       .get(
         `https://api.coingecko.com/api/v3/coins/${querydata.id}/market_chart?vs_currency=usd&days=${querydata.daysback}`
@@ -133,18 +118,16 @@ class App extends React.Component {
         </div>
         <div className="zoom-controls">
           <input
-            className="zoombtn"
+            className="zoom-button"
             type="button"
             onClick={this.zoomOut}
             value="-"
-            style={zoomstyle}
           />
           <input
-            className="zoombtn"
+            className="zoom-button"
             type="button"
             onClick={this.zoomIn}
             value="+"
-            style={zoomstyle}
           />
         </div>
       </div>
